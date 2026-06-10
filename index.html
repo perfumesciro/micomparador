@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Mi Comparador</title>
+
+<style>
+body{
+  font-family: Arial;
+  background:#0f172a;
+  color:white;
+  padding:20px;
+}
+
+.container{
+  max-width:800px;
+  margin:auto;
+}
+
+input, button{
+  padding:10px;
+  margin:5px;
+}
+
+table{
+  width:100%;
+  margin-top:20px;
+  border-collapse:collapse;
+}
+
+td, th{
+  border:1px solid #444;
+  padding:10px;
+  text-align:center;
+}
+
+.best{
+  background:green;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Comparador de Supermercados</h1>
+
+<input id="producto" placeholder="Escribí un producto">
+<button onclick="buscar()">Comenzar</button>
+
+<table>
+  <thead>
+    <tr>
+      <th>Supermercado</th>
+      <th>Precio</th>
+      <th>Descuento</th>
+    </tr>
+  </thead>
+
+  <tbody id="tabla"></tbody>
+</table>
+
+</div>
+
+<script>
+function buscar(){
+
+  const datos = [
+    {super:"Carrefour", precio:2500, desc:"10%"},
+    {super:"Jumbo", precio:2200, desc:"20%"},
+    {super:"Vital", precio:2300, desc:"8%"},
+    {super:"Makro", precio:2100, desc:"15%"},
+    {super:"Diarco", precio:2400, desc:"5%"}
+  ];
+
+  const tabla = document.getElementById("tabla");
+  tabla.innerHTML = "";
+
+  const mejor = Math.min(...datos.map(d => d.precio));
+
+  datos.forEach(d => {
+
+    const fila = document.createElement("tr");
+
+    if(d.precio === mejor){
+      fila.classList.add("best");
+    }
+
+    fila.innerHTML = `
+      <td>${d.super}</td>
+      <td>$${d.precio}</td>
+      <td>${d.desc}</td>
+    `;
+
+    tabla.appendChild(fila);
+  });
+
+}
+</script>
+
+</body>
+</html>
