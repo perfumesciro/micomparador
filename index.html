@@ -1,168 +1,41 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Comparador de Supermercados</title>
-
-<style>
-body{
-  margin:0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg,#0f172a,#1e293b);
-  color:white;
-}
-
-/* CONTENEDOR PRINCIPAL */
-.container{
-  max-width:900px;
-  margin:50px auto;
-  padding:30px;
-  background:#111827;
-  border-radius:20px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.5);
-}
-
-/* TITULO */
-h1{
-  text-align:center;
-  margin-bottom:20px;
-  font-size:28px;
-}
-
-/* BUSCADOR */
-.search{
-  display:flex;
-  gap:10px;
-  margin-bottom:20px;
-}
-
-input{
-  flex:1;
-  padding:12px;
-  border:none;
-  border-radius:12px;
-  outline:none;
-  font-size:16px;
-}
-
-button{
-  padding:12px 20px;
-  border:none;
-  border-radius:12px;
-  background:#22c55e;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-button:hover{
-  background:#16a34a;
-  transform:scale(1.05);
-}
-
-/* TABLA */
-table{
-  width:100%;
-  border-collapse:collapse;
-  overflow:hidden;
-  border-radius:12px;
-}
-
-th{
-  background:#1f2937;
-  padding:12px;
-}
-
-td{
-  padding:12px;
-  text-align:center;
-  border-bottom:1px solid #334155;
-}
-
-/* MEJOR PRECIO */
-.best{
-  background:#14532d;
-  font-weight:bold;
-}
-
-/* TARJETA INFO */
-.info{
-  margin-top:15px;
-  padding:12px;
-  background:#1f2937;
-  border-radius:12px;
-  text-align:center;
-  font-size:14px;
-}
-</style>
-
+  <title>Comparador de Precios</title>
+  <style>
+    body { font-family: Arial; text-align: center; }
+    .card { border: 1px solid #ccc; margin: 10px; padding: 10px; display: inline-block; }
+    .best { background-color: lightgreen; }
+  </style>
 </head>
-
 <body>
 
-<div class="container">
+<h1>Comparador de Precios</h1>
 
-<h1>🛒 Comparador de Supermercados</h1>
+<button onclick="cargar()">Actualizar</button>
 
-<div class="search">
-  <input id="producto" placeholder="Escribí un producto (ej: pescado, arroz, leche)">
-  <button onclick="buscar()">Comenzar</button>
-</div>
-
-<table>
-  <thead>
-    <tr>
-      <th>Supermercado</th>
-      <th>Precio</th>
-      <th>Descuento</th>
-      <th>Duración</th>
-    </tr>
-  </thead>
-
-  <tbody id="tabla"></tbody>
-</table>
-
-<div class="info">
-  🔎 Escribí un producto y compará precios entre supermercados
-</div>
-
-</div>
+<div id="app"></div>
 
 <script>
-function buscar(){
+async function cargar() {
+  const res = await fetch('data.json');
+  const data = await res.json();
 
-  const datos = [
-    {super:"Carrefour", precio:2500, desc:"10%", dur:"3 días"},
-    {super:"Jumbo", precio:2200, desc:"20%", dur:"5 días"},
-    {super:"Vital", precio:2300, desc:"8%", dur:"4 días"},
-    {super:"Makro", precio:2100, desc:"15%", dur:"7 días"},
-    {super:"Diarco", precio:2400, desc:"5%", dur:"2 días"}
-  ];
+  const productos = data.pescado;
+  const menor = Math.min(...productos.map(p => p.precio));
 
-  const tabla = document.getElementById("tabla");
-  tabla.innerHTML = "";
+  let html = '';
 
-  const mejor = Math.min(...datos.map(d => d.precio));
-
-  datos.forEach(d => {
-
-    const fila = document.createElement("tr");
-
-    if(d.precio === mejor){
-      fila.classList.add("best");
-    }
-
-    fila.innerHTML = `
-      <td>${d.super}</td>
-      <td>$${d.precio}</td>
-      <td>${d.desc}</td>
-      <td>${d.dur}</td>
+  productos.forEach(p => {
+    html += `
+      <div class="card ${p.precio === menor ? 'best' : ''}">
+        <h3>${p.super}</h3>
+        <p>$${p.precio}</p>
+      </div>
     `;
-
-    tabla.appendChild(fila);
   });
 
+  document.getElementById('app').innerHTML = html;
 }
 </script>
 
