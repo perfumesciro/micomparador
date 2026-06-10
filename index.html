@@ -2,40 +2,98 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Mi Comparador</title>
+<title>Comparador de Supermercados</title>
 
 <style>
 body{
-  font-family: Arial;
-  background:#0f172a;
+  margin:0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg,#0f172a,#1e293b);
   color:white;
-  padding:20px;
 }
 
+/* CONTENEDOR PRINCIPAL */
 .container{
-  max-width:800px;
-  margin:auto;
+  max-width:900px;
+  margin:50px auto;
+  padding:30px;
+  background:#111827;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.5);
 }
 
-input, button{
-  padding:10px;
-  margin:5px;
+/* TITULO */
+h1{
+  text-align:center;
+  margin-bottom:20px;
+  font-size:28px;
 }
 
+/* BUSCADOR */
+.search{
+  display:flex;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+input{
+  flex:1;
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  outline:none;
+  font-size:16px;
+}
+
+button{
+  padding:12px 20px;
+  border:none;
+  border-radius:12px;
+  background:#22c55e;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  background:#16a34a;
+  transform:scale(1.05);
+}
+
+/* TABLA */
 table{
   width:100%;
-  margin-top:20px;
   border-collapse:collapse;
+  overflow:hidden;
+  border-radius:12px;
 }
 
-td, th{
-  border:1px solid #444;
-  padding:10px;
+th{
+  background:#1f2937;
+  padding:12px;
+}
+
+td{
+  padding:12px;
   text-align:center;
+  border-bottom:1px solid #334155;
 }
 
+/* MEJOR PRECIO */
 .best{
-  background:green;
+  background:#14532d;
+  font-weight:bold;
+}
+
+/* TARJETA INFO */
+.info{
+  margin-top:15px;
+  padding:12px;
+  background:#1f2937;
+  border-radius:12px;
+  text-align:center;
+  font-size:14px;
 }
 </style>
 
@@ -45,10 +103,12 @@ td, th{
 
 <div class="container">
 
-<h1>Comparador de Supermercados</h1>
+<h1>🛒 Comparador de Supermercados</h1>
 
-<input id="producto" placeholder="Escribí un producto">
-<button onclick="buscar()">Comenzar</button>
+<div class="search">
+  <input id="producto" placeholder="Escribí un producto (ej: pescado, arroz, leche)">
+  <button onclick="buscar()">Comenzar</button>
+</div>
 
 <table>
   <thead>
@@ -56,11 +116,16 @@ td, th{
       <th>Supermercado</th>
       <th>Precio</th>
       <th>Descuento</th>
+      <th>Duración</th>
     </tr>
   </thead>
 
   <tbody id="tabla"></tbody>
 </table>
+
+<div class="info">
+  🔎 Escribí un producto y compará precios entre supermercados
+</div>
 
 </div>
 
@@ -68,11 +133,11 @@ td, th{
 function buscar(){
 
   const datos = [
-    {super:"Carrefour", precio:2500, desc:"10%"},
-    {super:"Jumbo", precio:2200, desc:"20%"},
-    {super:"Vital", precio:2300, desc:"8%"},
-    {super:"Makro", precio:2100, desc:"15%"},
-    {super:"Diarco", precio:2400, desc:"5%"}
+    {super:"Carrefour", precio:2500, desc:"10%", dur:"3 días"},
+    {super:"Jumbo", precio:2200, desc:"20%", dur:"5 días"},
+    {super:"Vital", precio:2300, desc:"8%", dur:"4 días"},
+    {super:"Makro", precio:2100, desc:"15%", dur:"7 días"},
+    {super:"Diarco", precio:2400, desc:"5%", dur:"2 días"}
   ];
 
   const tabla = document.getElementById("tabla");
@@ -92,6 +157,7 @@ function buscar(){
       <td>${d.super}</td>
       <td>$${d.precio}</td>
       <td>${d.desc}</td>
+      <td>${d.dur}</td>
     `;
 
     tabla.appendChild(fila);
