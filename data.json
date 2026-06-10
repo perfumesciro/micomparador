@@ -2,23 +2,19 @@
   "pescado": [
     {
       "super": "Carrefour",
-      "precio": 2500,
-      "descuento": "10%"
+      "precio": 194
     },
     {
       "super": "Jumbo",
-      "precio": 2200,
-      "descuento": "20%"
+      "precio": 1828
     },
     {
       "super": "Makro",
-      "precio": 2100,
-      "descuento": "5%"
+      "precio": 2224
     },
     {
       "super": "Diarco",
-      "precio": 2400,
-      "descuento": "0%"
+      "precio": 1802
     }
   ]
 }
