@@ -1,27 +1,15 @@
-name: Actualizar precios automáticamente
+name: actualizar-precios
 
 on:
-  schedule:
-    - cron: "0 */6 * * *"  # cada 6 horas
-  workflow_dispatch:  # te deja ejecutarlo manual
+  workflow_dispatch:
 
 jobs:
-  update:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Descargar repo
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Mostrar mensaje
-        run: echo "Actualizando precios..."
-
-      # 🔴 AQUÍ después vamos a poner el scraping o API
-
-      - name: Guardar cambios
-        run: |
-          git config --global user.name "bot"
-          git config --global user.email "bot@users.noreply.github.com"
-          git add data.json
-          git commit -m "actualización automática de precios" || echo "sin cambios"
-          git push
+      - name: Mensaje
+        run: echo "Workflow funcionando OK"
