@@ -1,26 +1,61 @@
 /* =========================================================
    ULTIMATE FOOTBALL
    PARTE 27
-   MENÚ PRINCIPAL DE MODOS
+   MENÚ PRINCIPAL + TUTORIAL + ESTADÍSTICAS
 ========================================================= */
 
 (() => {
 
     "use strict";
 
-    const style = document.createElement("style");
+
+    /* =====================================================
+       EVITAR DUPLICADOS
+    ===================================================== */
+
+    const oldMenu =
+        document.getElementById("footballMenu27");
+
+    const oldTutorial =
+        document.getElementById("tutorial27");
+
+    const oldStats =
+        document.getElementById("stats27");
+
+    if (oldMenu) oldMenu.remove();
+    if (oldTutorial) oldTutorial.remove();
+    if (oldStats) oldStats.remove();
+
+
+    /* =====================================================
+       ESTILOS
+    ===================================================== */
+
+    const oldStyle =
+        document.getElementById("style27");
+
+    if (oldStyle) oldStyle.remove();
+
+
+    const style =
+        document.createElement("style");
+
+    style.id = "style27";
 
     style.textContent = `
 
         #footballMenu27 {
 
             position: fixed;
+
             inset: 0;
+
             z-index: 14000;
 
             display: none;
 
             align-items: center;
+
             justify-content: center;
 
             overflow: hidden;
@@ -30,7 +65,7 @@
             background:
                 linear-gradient(
                     rgba(0,0,0,.35),
-                    rgba(0,0,0,.65)
+                    rgba(0,0,0,.70)
                 ),
                 linear-gradient(
                     135deg,
@@ -38,19 +73,27 @@
                     #0e9c43,
                     #063e20
                 );
+
         }
 
+
         #footballMenu27.active {
+
             display: flex;
+
         }
+
 
         #menuField27 {
 
             position: absolute;
+
             inset: 0;
+
             opacity: .25;
 
             background:
+
                 repeating-linear-gradient(
                     90deg,
                     transparent 0 90px,
@@ -64,21 +107,25 @@
                     rgba(255,255,255,.15)
                     90px 92px
                 );
+
         }
+
 
         #menuPanel27 {
 
             position: relative;
+
             z-index: 2;
 
-            width: min(850px, 92vw);
+            width:
+                min(850px, 92vw);
 
             padding: 35px;
 
             border-radius: 24px;
 
             background:
-                rgba(10,25,18,.92);
+                rgba(10,25,18,.94);
 
             border:
                 1px solid
@@ -92,7 +139,9 @@
 
             backdrop-filter:
                 blur(12px);
+
         }
+
 
         #menuTitle27 {
 
@@ -114,7 +163,9 @@
             text-shadow:
                 0 5px 20px
                 rgba(0,0,0,.7);
+
         }
+
 
         #menuSubtitle27 {
 
@@ -125,7 +176,9 @@
                 8px 0 30px;
 
             font-size: 16px;
+
         }
+
 
         #menuButtons27 {
 
@@ -135,7 +188,9 @@
                 repeat(2, 1fr);
 
             gap: 18px;
+
         }
+
 
         .menuButton27 {
 
@@ -158,7 +213,9 @@
             box-shadow:
                 0 10px 25px
                 rgba(0,0,0,.3);
+
         }
+
 
         .menuButton27:hover {
 
@@ -169,13 +226,17 @@
             box-shadow:
                 0 18px 35px
                 rgba(0,0,0,.4);
+
         }
+
 
         .menuButton27:active {
 
             transform:
                 scale(.98);
+
         }
+
 
         #penaltyButton27 {
 
@@ -185,7 +246,9 @@
                     #087f36,
                     #11b653
                 );
+
         }
+
 
         #freeKickButton27 {
 
@@ -195,7 +258,9 @@
                     #075ca8,
                     #118be6
                 );
+
         }
+
 
         #tutorialButton27 {
 
@@ -205,7 +270,9 @@
                     #6c42b8,
                     #a15ce6
                 );
+
         }
+
 
         #statsButton27 {
 
@@ -215,7 +282,9 @@
                     #bd7411,
                     #edaa24
                 );
+
         }
+
 
         .menuIcon27 {
 
@@ -224,7 +293,9 @@
             font-size: 45px;
 
             margin-bottom: 10px;
+
         }
+
 
         .menuButtonTitle27 {
 
@@ -233,7 +304,9 @@
             font-size: 22px;
 
             font-weight: 1000;
+
         }
+
 
         .menuButtonText27 {
 
@@ -244,11 +317,13 @@
             font-size: 13px;
 
             opacity: .8;
+
         }
 
-        /* =========================
+
+        /* =================================================
            TUTORIAL
-        ========================= */
+        ================================================= */
 
         #tutorial27 {
 
@@ -256,7 +331,7 @@
 
             inset: 0;
 
-            z-index: 15000;
+            z-index: 16000;
 
             display: none;
 
@@ -267,13 +342,17 @@
             padding: 20px;
 
             background:
-                rgba(0,0,0,.78);
+                rgba(0,0,0,.80);
+
         }
+
 
         #tutorial27.active {
 
             display: flex;
+
         }
+
 
         #tutorialPanel27 {
 
@@ -300,7 +379,9 @@
             box-shadow:
                 0 25px 80px
                 rgba(0,0,0,.7);
+
         }
+
 
         #tutorialPanel27 h2 {
 
@@ -309,7 +390,9 @@
             text-align: center;
 
             font-size: 32px;
+
         }
+
 
         .tutorialItem27 {
 
@@ -328,7 +411,9 @@
 
             background:
                 rgba(255,255,255,.07);
+
         }
+
 
         .tutorialIcon27 {
 
@@ -348,14 +433,18 @@
                 rgba(255,255,255,.1);
 
             font-size: 25px;
+
         }
+
 
         .tutorialText27 strong {
 
             display: block;
 
             font-size: 17px;
+
         }
+
 
         .tutorialText27 span {
 
@@ -367,7 +456,9 @@
                 rgba(255,255,255,.65);
 
             font-size: 13px;
+
         }
+
 
         #closeTutorial27 {
 
@@ -391,11 +482,13 @@
             font-weight: 900;
 
             cursor: pointer;
+
         }
 
-        /* =========================
+
+        /* =================================================
            ESTADÍSTICAS
-        ========================= */
+        ================================================= */
 
         #stats27 {
 
@@ -403,7 +496,7 @@
 
             inset: 0;
 
-            z-index: 15000;
+            z-index: 16000;
 
             display: none;
 
@@ -414,13 +507,17 @@
             padding: 20px;
 
             background:
-                rgba(0,0,0,.8);
+                rgba(0,0,0,.80);
+
         }
+
 
         #stats27.active {
 
             display: flex;
+
         }
+
 
         #statsPanel27 {
 
@@ -437,7 +534,9 @@
             padding: 30px;
 
             text-align: center;
+
         }
+
 
         #statsGrid27 {
 
@@ -449,7 +548,9 @@
             gap: 12px;
 
             margin-top: 20px;
+
         }
+
 
         .statCard27 {
 
@@ -459,21 +560,27 @@
 
             background:
                 rgba(255,255,255,.08);
+
         }
+
 
         .statNumber27 {
 
             font-size: 30px;
 
             font-weight: 1000;
+
         }
+
 
         .statLabel27 {
 
             font-size: 12px;
 
             opacity: .7;
+
         }
+
 
         .closeModal27 {
 
@@ -494,28 +601,34 @@
             font-weight: 900;
 
             cursor: pointer;
+
         }
+
 
         @media(max-width:650px) {
 
             #menuButtons27 {
 
                 grid-template-columns: 1fr;
+
             }
 
             #menuPanel27 {
 
                 padding: 22px;
+
             }
 
             .menuButton27 {
 
                 min-height: 110px;
+
             }
 
         }
 
     `;
+
 
     document.head.appendChild(style);
 
@@ -524,183 +637,140 @@
        CREAR MENÚ
     ===================================================== */
 
-   function connectMenu27() {
+    function createMenu27() {
 
-    const menu =
-        document.getElementById(
-            "footballMenu27"
-        );
+        const menu =
+            document.createElement("div");
 
-
-    /* =========================
-       PENALES
-    ========================= */
-
-    document
-        .getElementById(
-            "penaltyButton27"
-        )
-        .addEventListener(
-            "click",
-            () => {
-
-                // Ocultar menú
-                menu.classList.remove(
-                    "active"
-                );
+        menu.id =
+            "footballMenu27";
 
 
-                // Pequeña transición
-                document.body.style
-                    .transition =
-                    "opacity .25s";
+        menu.innerHTML = `
 
-                document.body.style.opacity =
-                    "0";
+            <div id="menuField27"></div>
 
 
-                setTimeout(() => {
+            <div id="menuPanel27">
 
-                    document.body.style.opacity =
-                        "1";
-
-
-                    if (
-                        typeof window
-                            .startPenaltyMode25
-                            ===
-                            "function"
-                    ) {
-
-                        window
-                            .startPenaltyMode25();
-
-                    } else {
-
-                        console.error(
-                            "No se encontró startPenaltyMode25()"
-                        );
-
-                    }
-
-                }, 300);
-
-            }
-        );
+                <h1 id="menuTitle27">
+                    ⚽ ULTIMATE FOOTBALL
+                </h1>
 
 
-    /* =========================
-       TIROS LIBRES
-    ========================= */
-
-    document
-        .getElementById(
-            "freeKickButton27"
-        )
-        .addEventListener(
-            "click",
-            () => {
-
-                // Ocultar menú
-                menu.classList.remove(
-                    "active"
-                );
+                <div id="menuSubtitle27">
+                    Elegí cómo querés jugar
+                </div>
 
 
-                document.body.style
-                    .transition =
-                    "opacity .25s";
-
-                document.body.style.opacity =
-                    "0";
+                <div id="menuButtons27">
 
 
-                setTimeout(() => {
+                    <button
+                        class="menuButton27"
+                        id="penaltyButton27">
 
-                    document.body.style.opacity =
-                        "1";
+                        <span
+                            class="menuIcon27">
+                            🥅
+                        </span>
 
+                        <span
+                            class="menuButtonTitle27">
+                            PENALES
+                        </span>
 
-                    if (
-                        typeof window
-                            .startFreeKickMode26
-                            ===
-                            "function"
-                    ) {
+                        <span
+                            class="menuButtonText27">
+                            Apuntá, elegí potencia
+                            y vencé al arquero
+                        </span>
 
-                        window
-                            .startFreeKickMode26();
-
-                    } else {
-
-                        console.error(
-                            "No se encontró startFreeKickMode26()"
-                        );
-
-                    }
-
-                }, 300);
-
-            }
-        );
+                    </button>
 
 
-    /* =========================
-       TUTORIAL
-    ========================= */
+                    <button
+                        class="menuButton27"
+                        id="freeKickButton27">
 
-    document
-        .getElementById(
-            "tutorialButton27"
-        )
-        .addEventListener(
-            "click",
-            () => {
+                        <span
+                            class="menuIcon27">
+                            🌀
+                        </span>
 
-                document
-                    .getElementById(
-                        "tutorial27"
-                    )
-                    .classList
-                    .add(
-                        "active"
-                    );
+                        <span
+                            class="menuButtonTitle27">
+                            TIROS LIBRES
+                        </span>
 
-            }
-        );
+                        <span
+                            class="menuButtonText27">
+                            Superá la barrera
+                            con efecto
+                        </span>
+
+                    </button>
 
 
-    /* =========================
-       ESTADÍSTICAS
-    ========================= */
+                    <button
+                        class="menuButton27"
+                        id="tutorialButton27">
 
-    document
-        .getElementById(
-            "statsButton27"
-        )
-        .addEventListener(
-            "click",
-            () => {
+                        <span
+                            class="menuIcon27">
+                            🎮
+                        </span>
 
-                updateStats27();
+                        <span
+                            class="menuButtonTitle27">
+                            TUTORIAL
+                        </span>
+
+                        <span
+                            class="menuButtonText27">
+                            Aprendé todos
+                            los controles
+                        </span>
+
+                    </button>
 
 
-                document
-                    .getElementById(
-                        "stats27"
-                    )
-                    .classList
-                    .add(
-                        "active"
-                    );
+                    <button
+                        class="menuButton27"
+                        id="statsButton27">
 
-            }
-        );
+                        <span
+                            class="menuIcon27">
+                            📊
+                        </span>
 
-}
+                        <span
+                            class="menuButtonTitle27">
+                            ESTADÍSTICAS
+                        </span>
+
+                        <span
+                            class="menuButtonText27">
+                            Mirá tu rendimiento
+                        </span>
+
+                    </button>
+
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        document.body.appendChild(menu);
+
+    }
+
 
     /* =====================================================
-       TUTORIAL
+       CREAR TUTORIAL
     ===================================================== */
 
     function createTutorial27() {
@@ -730,7 +800,7 @@
                     <div class="tutorialText27">
 
                         <strong>
-                            Apuntar
+                            APUNTAR
                         </strong>
 
                         <span>
@@ -753,13 +823,13 @@
                     <div class="tutorialText27">
 
                         <strong>
-                            Potencia
+                            POTENCIA
                         </strong>
 
                         <span>
-                            La barra de potencia
-                            determina la fuerza
-                            del disparo.
+                            Elegí la fuerza del
+                            disparo con la barra
+                            de potencia.
                         </span>
 
                     </div>
@@ -776,13 +846,12 @@
                     <div class="tutorialText27">
 
                         <strong>
-                            Patear
+                            PATEAR
                         </strong>
 
                         <span>
-                            Presioná el botón
-                            PATEAR o la tecla
-                            ESPACIO.
+                            Presioná PATEAR
+                            o la tecla ESPACIO.
                         </span>
 
                     </div>
@@ -799,13 +868,12 @@
                     <div class="tutorialText27">
 
                         <strong>
-                            Efecto
+                            EFECTO
                         </strong>
 
                         <span>
                             En los tiros libres
-                            podés usar el control
-                            de efecto para curvar
+                            podés curvar
                             la pelota.
                         </span>
 
@@ -823,13 +891,13 @@
                     <div class="tutorialText27">
 
                         <strong>
-                            Barrera
+                            BARRERA
                         </strong>
 
                         <span>
-                            En los tiros libres
-                            tenés que superar
-                            la barrera.
+                            Intentá superar
+                            la barrera para
+                            marcar.
                         </span>
 
                     </div>
@@ -846,7 +914,7 @@
                     <div class="tutorialText27">
 
                         <strong>
-                            Arquero
+                            ARQUERO
                         </strong>
 
                         <span>
@@ -896,7 +964,7 @@
 
 
     /* =====================================================
-       ESTADÍSTICAS
+       CREAR ESTADÍSTICAS
     ===================================================== */
 
     function createStats27() {
@@ -916,19 +984,25 @@
                     📊 ESTADÍSTICAS
                 </h2>
 
+
                 <div id="statsGrid27">
+
 
                     <div class="statCard27">
 
                         <div
                             class="statNumber27"
                             id="statsGoals27">
+
                             0
+
                         </div>
 
                         <div
                             class="statLabel27">
+
                             GOLES
+
                         </div>
 
                     </div>
@@ -939,12 +1013,16 @@
                         <div
                             class="statNumber27"
                             id="statsShots27">
+
                             0
+
                         </div>
 
                         <div
                             class="statLabel27">
+
                             TIROS
+
                         </div>
 
                     </div>
@@ -955,12 +1033,16 @@
                         <div
                             class="statNumber27"
                             id="statsSaves27">
+
                             0
+
                         </div>
 
                         <div
                             class="statLabel27">
+
                             ATAJADAS
+
                         </div>
 
                     </div>
@@ -971,15 +1053,20 @@
                         <div
                             class="statNumber27"
                             id="statsAccuracy27">
+
                             0%
+
                         </div>
 
                         <div
                             class="statLabel27">
+
                             PRECISIÓN
+
                         </div>
 
                     </div>
+
 
                 </div>
 
@@ -1034,8 +1121,7 @@
         if (
             typeof window
                 .getPenaltyStats25
-                ===
-                "function"
+                === "function"
         ) {
 
             penalty =
@@ -1047,8 +1133,7 @@
         if (
             typeof window
                 .getFreeKickStats26
-                ===
-                "function"
+                === "function"
         ) {
 
             freeKick =
@@ -1074,146 +1159,251 @@
 
         const accuracy =
             shots > 0
-
                 ? Math.round(
-                    goals /
-                    shots *
-                    100
+                    goals / shots * 100
                 )
-
                 : 0;
 
 
-        document
-            .getElementById(
+        const goalsElement =
+            document.getElementById(
                 "statsGoals27"
-            )
-            .textContent =
-            goals;
+            );
 
-
-        document
-            .getElementById(
+        const shotsElement =
+            document.getElementById(
                 "statsShots27"
-            )
-            .textContent =
-            shots;
+            );
 
-
-        document
-            .getElementById(
+        const savesElement =
+            document.getElementById(
                 "statsSaves27"
-            )
-            .textContent =
-            saves;
+            );
 
-
-        document
-            .getElementById(
+        const accuracyElement =
+            document.getElementById(
                 "statsAccuracy27"
-            )
-            .textContent =
-            accuracy + "%";
+            );
+
+
+        if (goalsElement)
+            goalsElement.textContent =
+                goals;
+
+
+        if (shotsElement)
+            shotsElement.textContent =
+                shots;
+
+
+        if (savesElement)
+            savesElement.textContent =
+                saves;
+
+
+        if (accuracyElement)
+            accuracyElement.textContent =
+                accuracy + "%";
 
     }
 
 
     /* =====================================================
-       BOTONES
+       ABRIR PENAL
+    ===================================================== */
+
+    function openPenalties27() {
+
+        const menu =
+            document.getElementById(
+                "footballMenu27"
+            );
+
+
+        if (menu) {
+
+            menu.classList.remove(
+                "active"
+            );
+
+        }
+
+
+        /*
+          IMPORTANTE:
+
+          Llamamos directamente a la
+          función de la Parte 25.
+        */
+
+        if (
+            typeof window
+                .startPenaltyMode25
+                === "function"
+        ) {
+
+            window
+                .startPenaltyMode25();
+
+        } else {
+
+            console.error(
+                "No existe startPenaltyMode25()."
+            );
+
+            alert(
+                "No se encontró el modo Penales de la Parte 25."
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       ABRIR TIROS LIBRES
+    ===================================================== */
+
+    function openFreeKick27() {
+
+        const menu =
+            document.getElementById(
+                "footballMenu27"
+            );
+
+
+        if (menu) {
+
+            menu.classList.remove(
+                "active"
+            );
+
+        }
+
+
+        if (
+            typeof window
+                .startFreeKickMode26
+                === "function"
+        ) {
+
+            window
+                .startFreeKickMode26();
+
+        } else {
+
+            console.error(
+                "No existe startFreeKickMode26()."
+            );
+
+            alert(
+                "No se encontró el modo Tiros Libres de la Parte 26."
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       CONECTAR BOTONES
     ===================================================== */
 
     function connectMenu27() {
 
-        document
-            .getElementById(
+
+        const penaltyButton =
+            document.getElementById(
                 "penaltyButton27"
-            )
-            .addEventListener(
-                "click",
-                () => {
-
-                    if (
-                        typeof window
-                            .startPenaltyMode25
-                            ===
-                            "function"
-                    ) {
-
-                        window
-                            .startPenaltyMode25();
-
-                    }
-
-                }
             );
 
 
-        document
-            .getElementById(
+        const freeKickButton =
+            document.getElementById(
                 "freeKickButton27"
-            )
-            .addEventListener(
-                "click",
-                () => {
-
-                    if (
-                        typeof window
-                            .startFreeKickMode26
-                            ===
-                            "function"
-                    ) {
-
-                        window
-                            .startFreeKickMode26();
-
-                    }
-
-                }
             );
 
 
-        document
-            .getElementById(
+        const tutorialButton =
+            document.getElementById(
                 "tutorialButton27"
-            )
-            .addEventListener(
-                "click",
+            );
+
+
+        const statsButton =
+            document.getElementById(
+                "statsButton27"
+            );
+
+
+        if (penaltyButton) {
+
+            penaltyButton.onclick =
+                openPenalties27;
+
+        }
+
+
+        if (freeKickButton) {
+
+            freeKickButton.onclick =
+                openFreeKick27;
+
+        }
+
+
+        if (tutorialButton) {
+
+            tutorialButton.onclick =
                 () => {
 
-                    document
-                        .getElementById(
+                    const tutorial =
+                        document.getElementById(
                             "tutorial27"
-                        )
-                        .classList
-                        .add(
-                            "active"
                         );
 
-                }
-            );
+                    if (tutorial) {
+
+                        tutorial
+                            .classList
+                            .add(
+                                "active"
+                            );
+
+                    }
+
+                };
+
+        }
 
 
-        document
-            .getElementById(
-                "statsButton27"
-            )
-            .addEventListener(
-                "click",
+        if (statsButton) {
+
+            statsButton.onclick =
                 () => {
 
                     updateStats27();
 
-                    document
-                        .getElementById(
+
+                    const stats =
+                        document.getElementById(
                             "stats27"
-                        )
-                        .classList
-                        .add(
-                            "active"
                         );
 
-                }
-            );
+
+                    if (stats) {
+
+                        stats
+                            .classList
+                            .add(
+                                "active"
+                            );
+
+                    }
+
+                };
+
+        }
 
     }
 
@@ -1225,16 +1415,19 @@
     window.openFootballMenu27 =
         function() {
 
-            createMenu27();
-
-            document
-                .getElementById(
+            const menu =
+                document.getElementById(
                     "footballMenu27"
-                )
-                .classList
-                .add(
-                    "active"
                 );
+
+
+            if (!menu)
+                return;
+
+
+            menu.classList.add(
+                "active"
+            );
 
         };
 
@@ -1247,18 +1440,16 @@
         function() {
 
             const menu =
-                document
-                    .getElementById(
-                        "footballMenu27"
-                    );
+                document.getElementById(
+                    "footballMenu27"
+                );
 
 
             if (menu) {
 
-                menu.classList
-                    .remove(
-                        "active"
-                    );
+                menu.classList.remove(
+                    "active"
+                );
 
             }
 
@@ -1266,14 +1457,32 @@
 
 
     /* =====================================================
-       INICIAR
+       CREAR TODO
     ===================================================== */
 
     createMenu27();
 
+    createTutorial27();
+
+    createStats27();
+
+    connectMenu27();
+
+
+    /* =====================================================
+       MOSTRAR MENÚ AL INICIAR
+    ===================================================== */
+
+    setTimeout(() => {
+
+        window.openFootballMenu27();
+
+    }, 100);
+
 
     console.log(
-        "⚽ Parte 27 cargada correctamente"
+        "⚽ PARTE 27 CARGADA CORRECTAMENTE"
     );
+
 
 })();
