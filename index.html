@@ -1,43 +1,242 @@
+```html
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <title>Comparador de Precios</title>
-  <style>
-    body { font-family: Arial; text-align: center; }
-    .card { border: 1px solid #ccc; margin: 10px; padding: 10px; display: inline-block; }
-    .best { background-color: lightgreen; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ultimate Football</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<h1>Comparador de Precios</h1>
+<!-- ================= MENÚ ================= -->
 
-<button onclick="cargar()">Actualizar</button>
+<section id="menu" class="screen active">
 
-<div id="app"></div>
+    <div class="menu-card">
 
-<script>
-async function cargar() {
-  const res = await fetch('data.json');
-  const data = await res.json();
+        <div class="logo">ULTIMATE<br><span>FOOTBALL</span></div>
 
-  const productos = data.pescado;
-  const menor = Math.min(...productos.map(p => p.precio));
+        <p>Penales • Tiros libres • Desafíos</p>
 
-  let html = '';
+        <button class="main-btn" id="playPenalty">
+            ⚽ PENAL
+        </button>
 
-  productos.forEach(p => {
-    html += `
-      <div class="card ${p.precio === menor ? 'best' : ''}">
-        <h3>${p.super}</h3>
-        <p>$${p.precio}</p>
-      </div>
-    `;
-  });
+        <button class="main-btn" id="playFreeKick">
+            🎯 TIRO LIBRE
+        </button>
 
-  document.getElementById('app').innerHTML = html;
-}
-</script>
+        <button class="secondary-btn" id="tutorialBtn">
+            📖 TUTORIAL
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= TUTORIAL ================= -->
+
+<section id="tutorial" class="screen">
+
+    <div class="tutorial-card">
+
+        <h1>📖 TUTORIAL</h1>
+
+        <div id="tutorialContent"></div>
+
+        <div class="tutorial-buttons">
+
+            <button class="secondary-btn" id="tutorialBack">
+                VOLVER
+            </button>
+
+            <button class="main-btn" id="tutorialNext">
+                SIGUIENTE
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= JUEGO ================= -->
+
+<section id="game">
+
+    <div id="stadium">
+
+        <div class="stands"></div>
+
+        <div class="lights"></div>
+
+        <div id="field">
+
+            <div class="penalty-area"></div>
+
+            <div class="goal-area"></div>
+
+            <div id="goal">
+                <div id="net"></div>
+            </div>
+
+            <div id="wall"></div>
+
+            <div id="keeper">
+
+                <div class="head"></div>
+                <div class="body"></div>
+                <div class="arm left"></div>
+                <div class="arm right"></div>
+
+            </div>
+
+            <div id="player">
+
+                <div class="head"></div>
+                <div class="body"></div>
+                <div class="leg left"></div>
+                <div class="leg right"></div>
+
+            </div>
+
+            <div id="ball"></div>
+
+            <div id="aim"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- HUD -->
+
+    <header id="hud">
+
+        <div class="hud-box">
+            <small>JUGADOR</small>
+            <strong id="score">0</strong>
+        </div>
+
+        <div class="hud-center">
+
+            <strong id="gameMode">PENALES</strong>
+
+            <span id="roundText">
+                TIRO 1 / 5
+            </span>
+
+        </div>
+
+        <div class="hud-box">
+            <small>DIFICULTAD</small>
+            <strong id="difficulty">
+                NORMAL
+            </strong>
+        </div>
+
+    </header>
+
+
+    <!-- MENSAJE -->
+
+    <div id="gameMessage"></div>
+
+
+    <!-- POTENCIA -->
+
+    <div id="powerUI">
+
+        <span>POTENCIA</span>
+
+        <div class="power-bar">
+            <div id="power"></div>
+        </div>
+
+    </div>
+
+
+    <!-- EFECTO -->
+
+    <div id="curveUI">
+
+        <span>EFECTO</span>
+
+        <input
+            type="range"
+            id="curve"
+            min="-100"
+            max="100"
+            value="0"
+        >
+
+        <div>
+            ← IZQUIERDA
+            <b>CENTRO</b>
+            DERECHA →
+        </div>
+
+    </div>
+
+
+    <!-- CONTROLES -->
+
+    <div id="controls">
+
+        <button id="shootBtn">
+            ⚡ PATEAR
+        </button>
+
+        <button id="resetBtn">
+            🔄 REPETIR
+        </button>
+
+        <button id="menuBtn">
+            🏠 MENÚ
+        </button>
+
+    </div>
+
+
+    <!-- INDICADOR DE APUNTADO -->
+
+    <div id="aimInfo">
+        🖱️ Mové el mouse para apuntar
+    </div>
+
+
+    <!-- RESULTADO -->
+
+    <div id="resultPanel">
+
+        <div class="result-card">
+
+            <h1 id="resultTitle">
+                FINAL
+            </h1>
+
+            <p id="resultText"></p>
+
+            <button class="main-btn" id="againBtn">
+                JUGAR DE NUEVO
+            </button>
+
+            <button class="secondary-btn" id="resultMenuBtn">
+                MENÚ PRINCIPAL
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<script src="game.js"></script>
 
 </body>
 </html>
+```
