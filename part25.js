@@ -1160,23 +1160,24 @@
            APUNTAR CON MOUSE
         */
 
-        scene.addEventListener(
-            "mousemove",
-            event => {
+       scene.addEventListener(
+    "mousedown",
+    event => {
 
-                if (
-                    !penalty25.active ||
-                    penalty25.locked
-                )
-                    return;
+        if (event.button !== 0)
+            return;
 
+        if (event.target.closest("button"))
+            return;
 
-                updateAim25(
-                    event.clientX,
-                    event.clientY
-                );
+        if (
+            !penalty25.active ||
+            penalty25.locked
+        )
+            return;
 
-            }
+        shootPenalty25();
+    }
         );
 
 
