@@ -524,151 +524,180 @@
        CREAR MENÚ
     ===================================================== */
 
-    function createMenu27() {
+   function connectMenu27() {
 
-        if (
-            document.getElementById(
-                "footballMenu27"
-            )
+    const menu =
+        document.getElementById(
+            "footballMenu27"
+        );
+
+
+    /* =========================
+       PENALES
+    ========================= */
+
+    document
+        .getElementById(
+            "penaltyButton27"
         )
-            return;
+        .addEventListener(
+            "click",
+            () => {
+
+                // Ocultar menú
+                menu.classList.remove(
+                    "active"
+                );
 
 
-        const menu =
-            document.createElement("div");
+                // Pequeña transición
+                document.body.style
+                    .transition =
+                    "opacity .25s";
 
-        menu.id =
-            "footballMenu27";
-
-
-        menu.innerHTML = `
-
-            <div id="menuField27"></div>
-
-            <div id="menuPanel27">
-
-                <h1 id="menuTitle27">
-                    ⚽ ULTIMATE FOOTBALL
-                </h1>
-
-                <div id="menuSubtitle27">
-                    Elegí cómo querés jugar
-                </div>
-
-                <div id="menuButtons27">
-
-                    <button
-                        class="menuButton27"
-                        id="penaltyButton27"
-                    >
-
-                        <span
-                            class="menuIcon27">
-                            🥅
-                        </span>
-
-                        <span
-                            class="menuButtonTitle27">
-                            PENALES
-                        </span>
-
-                        <span
-                            class="menuButtonText27">
-                            Apuntá, elegí potencia
-                            y vencé al arquero
-                        </span>
-
-                    </button>
+                document.body.style.opacity =
+                    "0";
 
 
-                    <button
-                        class="menuButton27"
-                        id="freeKickButton27"
-                    >
+                setTimeout(() => {
 
-                        <span
-                            class="menuIcon27">
-                            🌀
-                        </span>
-
-                        <span
-                            class="menuButtonTitle27">
-                            TIROS LIBRES
-                        </span>
-
-                        <span
-                            class="menuButtonText27">
-                            Superá la barrera
-                            con efecto
-                        </span>
-
-                    </button>
+                    document.body.style.opacity =
+                        "1";
 
 
-                    <button
-                        class="menuButton27"
-                        id="tutorialButton27"
-                    >
+                    if (
+                        typeof window
+                            .startPenaltyMode25
+                            ===
+                            "function"
+                    ) {
 
-                        <span
-                            class="menuIcon27">
-                            🎮
-                        </span>
+                        window
+                            .startPenaltyMode25();
 
-                        <span
-                            class="menuButtonTitle27">
-                            TUTORIAL
-                        </span>
+                    } else {
 
-                        <span
-                            class="menuButtonText27">
-                            Aprendé todos
-                            los controles
-                        </span>
+                        console.error(
+                            "No se encontró startPenaltyMode25()"
+                        );
 
-                    </button>
+                    }
 
+                }, 300);
 
-                    <button
-                        class="menuButton27"
-                        id="statsButton27"
-                    >
-
-                        <span
-                            class="menuIcon27">
-                            📊
-                        </span>
-
-                        <span
-                            class="menuButtonTitle27">
-                            ESTADÍSTICAS
-                        </span>
-
-                        <span
-                            class="menuButtonText27">
-                            Mirá tu rendimiento
-                        </span>
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        `;
+            }
+        );
 
 
-        document.body.appendChild(menu);
+    /* =========================
+       TIROS LIBRES
+    ========================= */
+
+    document
+        .getElementById(
+            "freeKickButton27"
+        )
+        .addEventListener(
+            "click",
+            () => {
+
+                // Ocultar menú
+                menu.classList.remove(
+                    "active"
+                );
 
 
-        createTutorial27();
+                document.body.style
+                    .transition =
+                    "opacity .25s";
 
-        createStats27();
+                document.body.style.opacity =
+                    "0";
 
-        connectMenu27();
 
-    }
+                setTimeout(() => {
 
+                    document.body.style.opacity =
+                        "1";
+
+
+                    if (
+                        typeof window
+                            .startFreeKickMode26
+                            ===
+                            "function"
+                    ) {
+
+                        window
+                            .startFreeKickMode26();
+
+                    } else {
+
+                        console.error(
+                            "No se encontró startFreeKickMode26()"
+                        );
+
+                    }
+
+                }, 300);
+
+            }
+        );
+
+
+    /* =========================
+       TUTORIAL
+    ========================= */
+
+    document
+        .getElementById(
+            "tutorialButton27"
+        )
+        .addEventListener(
+            "click",
+            () => {
+
+                document
+                    .getElementById(
+                        "tutorial27"
+                    )
+                    .classList
+                    .add(
+                        "active"
+                    );
+
+            }
+        );
+
+
+    /* =========================
+       ESTADÍSTICAS
+    ========================= */
+
+    document
+        .getElementById(
+            "statsButton27"
+        )
+        .addEventListener(
+            "click",
+            () => {
+
+                updateStats27();
+
+
+                document
+                    .getElementById(
+                        "stats27"
+                    )
+                    .classList
+                    .add(
+                        "active"
+                    );
+
+            }
+        );
+
+}
 
     /* =====================================================
        TUTORIAL
